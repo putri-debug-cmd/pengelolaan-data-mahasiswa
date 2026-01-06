@@ -18,3 +18,38 @@ application {
     // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
     mainClass = "org.example.app.AppKt"
 }
+tasks.withType<Jar> {
+    archiveBaseName.set("PengelolaanDataMahasiswa") // nama file jar
+    archiveVersion.set("1.0")
+    manifest {
+        attributes["Main-Class"] = "AppKt" // class utama
+    }
+}
+// Tambahkan ke build.gradle.kts
+tasks.withType<Jar> {
+    archiveBaseName.set("PengelolaanDataMahasiswa") // nama file .jar
+    archiveVersion.set("1.0")
+    manifest {
+        // Main-Class = nama file main kamu + Kt
+        attributes["Main-Class"] = "org.example.app.AppKt"
+    }
+    // Sertakan semua compiled class
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // abaikan duplikat
+    archiveBaseName.set("PengelolaanDataMahasiswa")
+    archiveVersion.set("1.0")
+    manifest {
+        attributes["Main-Class"] = "org.example.app.AppKt" // sesuaikan package App.kt
+    }
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
