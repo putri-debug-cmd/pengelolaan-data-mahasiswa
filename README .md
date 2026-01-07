@@ -24,3 +24,9 @@ Mendukung fitur CRUD lengkap, multi-delete, dan pencarian berdasarkan NIM atau N
 ---
 
 ## 📂 Struktur Project
+
+## Cara Menjalankan Aplikasi
+
+1. Buka project di IntelliJ IDEA
+2. Jalankan file `App.kt`
+3. Aplikasi GUI akan muncul
